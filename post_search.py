@@ -44,13 +44,13 @@ def get_face_token(file_path):
     req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
 
     try:
-        s = time.time()
+        # s = time.time()
         resp = urllib.request.urlopen(req, timeout=5)
-        e = time.time()
-        print("requst time: " + str(e - s))
+        # e = time.time()
+        # print("requst time: " + str(e - s))
         qrcont = resp.read()
         json_data = json.loads(qrcont.decode('utf-8'))
-        print(qrcont.decode('utf-8'))
+        # print(qrcont.decode('utf-8'))
         return json_data['faces'][0]['face_token']
     except urllib.error.HTTPError as e:
         print(e.read().decode('utf-8'))
@@ -62,7 +62,6 @@ def get_face_token(file_path):
     #return face_token
 
 def post_search(face_token):
-    user_id = ""
     http_url = 'https://api-us.faceplusplus.com/facepp/v3/search'
     key = "T7080cfMH824XsoWzR0v4QPc288iTWBu"
     secret = "iWLN8jiciOCMWidOKfzIufBW11I4fjl0"
@@ -97,15 +96,19 @@ def post_search(face_token):
     req.add_header('Content-Type', 'multipart/form-data; boundary=%s' % boundary)
 
     try:
-        s = time.time()
+        # s = time.time()
         resp = urllib.request.urlopen(req, timeout=5)
-        e = time.time()
-        print("requst time: " + str(e - s))
+        # e = time.time()
+        # print("requst time: " + str(e - s))
         qrcont = resp.read()
         json_data = json.loads(qrcont.decode('utf-8'))
-        print(qrcont.decode('utf-8'))
+        #print(qrcont.decode('utf-8'))
         user_id = json_data["results"][0]["user_id"]
-        return user_id
+        confidence = json_data["results"][0]["confidence"]
+        if confidence > 80:
+            return user_id
+        else:
+            return "cannot recognition"
     except urllib.error.HTTPError as e:
         print(e.read().decode('utf-8'))
     except urllib.error.URLError:
@@ -113,14 +116,14 @@ def post_search(face_token):
     except socket.timeout:
         print("-------------!!!------------")
 
-
-if __name__ == 'main':
-
-
-    s = time.time()
-
-    face_token = get_face_token('/Users/wangtianduo/Desktop/Python3/face_recoginition/dataset/User1.jpg')
-    print(post_search(face_token))
-    e = time.time()
-
-    print(e-s)
+#
+# if __name__ == 'main':
+#
+#
+#     s = time.time()
+#
+#     face_token = get_face_token('/Users/wangtianduo/Desktop/Python3/face_recoginition/dataset/User1.jpg')
+#     print(post_search(face_token))
+#     e = time.time()
+#
+#     print(e-s)
