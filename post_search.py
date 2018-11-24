@@ -2,7 +2,6 @@ import urllib.request
 import urllib.error
 import time
 import socket
-import requests
 import json
 
 def get_face_token(file_path):
@@ -51,6 +50,8 @@ def get_face_token(file_path):
         qrcont = resp.read()
         json_data = json.loads(qrcont.decode('utf-8'))
         # print(qrcont.decode('utf-8'))
+        if len(json_data['faces']) == 0:
+            return "No face"
         return json_data['faces'][0]['face_token']
     except urllib.error.HTTPError as e:
         print(e.read().decode('utf-8'))
@@ -102,10 +103,10 @@ def post_search(face_token):
         # print("requst time: " + str(e - s))
         qrcont = resp.read()
         json_data = json.loads(qrcont.decode('utf-8'))
-        #print(qrcont.decode('utf-8'))
+        print(qrcont.decode('utf-8'))
         user_id = json_data["results"][0]["user_id"]
         confidence = json_data["results"][0]["confidence"]
-        if confidence > 80:
+        if confidence > 60:
             return user_id
         else:
             return "cannot recognition"
