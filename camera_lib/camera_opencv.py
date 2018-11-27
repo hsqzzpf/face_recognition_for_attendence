@@ -1,6 +1,6 @@
 import cv2
-from base_camera import BaseCamera
-from general_face_detect import check_has_face, get_id
+from .base_camera import BaseCamera
+from .general_face_detect import check_has_face, get_id
 
 
 class Camera(BaseCamera):
@@ -11,11 +11,11 @@ class Camera(BaseCamera):
         camera = cv2.VideoCapture(0)
         if not camera.isOpened():
             raise RuntimeError('Could not start camera.')
-
+        
         while True:
             # read current frame
             _, img = camera.read()
-
+            
             face_list = check_has_face(img)
             if len(face_list) != 0:
                 Camera.status = 1 # status=1 means it is detecting

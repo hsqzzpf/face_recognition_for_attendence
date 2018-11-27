@@ -1,6 +1,6 @@
 import cv2
 import os
-import post_search
+from .post_search import post_search, get_face_token
 
 # cam = cv2.VideoCapture(0)
 # cam.set(3, 640) # set video width
@@ -72,8 +72,8 @@ import post_search
 # if no faces, return empty list
 # if detect faces, return list with faces in cvimg format
 def check_has_face(cvimg):
-    face_detector = cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
     gray = cv2.cvtColor(cvimg, cv2.COLOR_BGR2GRAY)
+    face_detector = cv2.CascadeClassifier('camera_lib/haarcascade_frontalface_default.xml')
     faces = face_detector.detectMultiScale(gray, 1.3, 5)
 
     output = []
@@ -90,8 +90,8 @@ def get_id(face_list):
     for face in face_list:
         file_name = "dataset/User" + ".jpg"
         cv2.imwrite(file_name, face)
-        face_token = post_search.get_face_token(file_name)
+        face_token = get_face_token(file_name)
         if face_token != "No face":
-            user_id = post_search.post_search(face_token)
+            user_id = post_search(face_token)
             output.append(user_id)
     return output

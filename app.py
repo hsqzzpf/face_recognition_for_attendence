@@ -12,7 +12,9 @@ from flask import Flask, render_template, Response
 # Raspberry Pi camera module (requires picamera package)
 # from camera_pi import Camera
 
-from camera_opencv import Camera
+from camera_lib.camera_opencv import Camera
+#import camera_lib
+
 app = Flask(__name__)
 
 
