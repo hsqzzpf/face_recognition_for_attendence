@@ -1,10 +1,13 @@
 package com.example.wangtianduo.teacher_end;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.Toast;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -19,8 +22,10 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.bottom_tab_layout_ac);
         mFragmensts = DataGenerator.getFragments("TabLayout Tab");
 
+        Intent intent = getIntent();
+        String returnValue = intent.getStringExtra("return");
         initView();
-
+        Toast.makeText(MainActivity.this, returnValue, Toast.LENGTH_SHORT).show();
     }
 
     private void initView() {
