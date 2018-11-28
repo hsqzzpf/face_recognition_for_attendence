@@ -15,7 +15,6 @@ public class DataGenerator {
         public static final int []mTabResPressed = new int[]{R.drawable.home_dosel,
                 R.drawable.class_dosel,R.drawable.schedule_dosel,
                 R.drawable.setting_dosel};
-        public static final String []mTabTitle = new String[]{"home","class","schedule","setting"};
 
         public static Fragment[] getFragments(String from){
             Fragment fragments[] = new Fragment[4];
@@ -32,13 +31,13 @@ public class DataGenerator {
          * @param position
          * @return
          */
-        public static View getTabView(Context context, int position){
-            View view = LayoutInflater.from(context).inflate(R.layout.home_tab_content,null);
-            ImageView tabIcon = (ImageView) view.findViewById(R.id.tab_content_image);
-            tabIcon.setImageResource(DataGenerator.mTabRes[position]);
-            TextView tabText = (TextView) view.findViewById(R.id.tab_content_text);
-            tabText.setText(mTabTitle[position]);
-            return view;
-        }
+//        public static View getTabView(Context context, int position){
+//            View view = LayoutInflater.from(context).inflate(R.layout.home_tab_content,null);
+//            ImageView tabIcon = (ImageView) view.findViewById(R.id.tab_content_image);
+//            tabIcon.setImageResource(DataGenerator.mTabRes[position]);
+////            TextView tabText = (TextView) view.findViewById(R.id.tab_content_text);
+////            tabText.setText(mTabTitle[position]);
+//            return view;
+//        }
 }
 

@@ -22,8 +22,6 @@
         android:id="@+id/bottom_tab_layout"
         android:layout_width="match_parent"
         app:tabIndicatorHeight="0dp"
-        app:tabSelectedTextColor="@android:color/black"
-        app:tabTextColor="@android:color/darker_gray"
         android:layout_height="50dp"
         android:background="#135187"
         app:tabTextAppearance="@style/TabLayout.TabText"
