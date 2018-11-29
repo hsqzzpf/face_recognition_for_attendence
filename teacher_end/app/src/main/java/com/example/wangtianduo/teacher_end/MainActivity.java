@@ -22,30 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.bottom_tab_layout_ac);
         mFragmensts = DataGenerator.getFragments("TabLayout Tab");
 
-//        Intent intent = getIntent();
-//        String returnValue = intent.getStringExtra("return");
-
-        CharaDbHelper charaDbHelper = CharaDbHelper.createCharaDbHelper(this);
-
-        //TODO 7.13 test the methods you wrote
-//        TestCharaDbHelper.testQueryOneRowRandom(charaDbHelper);
-//        TestCharaDbHelper.testTable(charaDbHelper);
-//
-//        TestCharaDbHelper.testDeleteOneRow(charaDbHelper, "Alan Turing");
-//
-//        TestCharaDbHelper.testInsertOneRow(charaDbHelper, "Alan Turing",
-//                "WW2 Computer Scientist",
-//                R.drawable.alanturing);
-//
-//        TestCharaDbHelper.testInsertOneRow(charaDbHelper, "Miku",
-//                "Vocaloid",
-//                R.drawable.hatsunemiku);
-//
-//        TestCharaDbHelper.testDeleteOneRow(charaDbHelper, "Miku");
-
-        Log.i("ASDF", "asdfghjkl");
         initView();
-//        Toast.makeText(MainActivity.this, returnValue, Toast.LENGTH_SHORT).show();
     }
 
     private void initView() {

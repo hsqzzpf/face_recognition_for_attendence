@@ -44,11 +44,9 @@ public class SettingFragment extends Fragment {
 
         TextView textView = view.findViewById(R.id.returnValue);
 
-        Log.i("ASDF", "Setting");
         add_face.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Log.i("ASDF", "Start first activity");
 
                 Intent intent = new Intent(getContext(), FaceDetection.class);
                 startActivity(intent);
