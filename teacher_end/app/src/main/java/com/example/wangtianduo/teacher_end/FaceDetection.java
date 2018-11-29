@@ -17,6 +17,7 @@ import android.hardware.camera2.TotalCaptureResult;
 import android.hardware.camera2.params.StreamConfigurationMap;
 import android.media.Image;
 import android.media.ImageReader;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.HandlerThread;
@@ -31,6 +32,7 @@ import android.view.Surface;
 import android.view.TextureView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import java.io.File;
@@ -49,6 +51,7 @@ public class FaceDetection extends AppCompatActivity {
 
     private Button btnCapture;
     private TextureView textureView;
+    private EditText editText;
 
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
     static{
@@ -72,6 +75,8 @@ public class FaceDetection extends AppCompatActivity {
     private Handler mBackgroundHandler;
     private HandlerThread mBackgroundThread;
 
+    private String uploadResult;
+
     CameraDevice.StateCallback stateCallback = new CameraDevice.StateCallback(){
         public void onOpened(@NonNull CameraDevice camera){
             cameraDevice = camera;
@@ -93,6 +98,7 @@ public class FaceDetection extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.face_detect_layout);
 
+        editText = findViewById(R.id.topText);
         textureView = (TextureView) findViewById(R.id.textureView);
         assert textureView != null;
         textureView.setSurfaceTextureListener(textureListener);
@@ -100,7 +106,9 @@ public class FaceDetection extends AppCompatActivity {
         btnCapture.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                takePicture();
+
+                AsynUpload asy = new AsynUpload();
+                asy.execute(1);
                 return;
             }
         });
@@ -108,6 +116,28 @@ public class FaceDetection extends AppCompatActivity {
 //        Intent intent = new Intent(FaceDetection.this, MainActivity.class);
 //        startActivity(intent);
 
+    }
+    class AsynUpload extends AsyncTask<Integer, String, String> {
+
+        @Override
+        protected String doInBackground(Integer... integers) {
+            takePicture();
+            return null;
+        }
+
+        @Override
+        protected void onProgressUpdate(String... values) {
+            super.onProgressUpdate(values);
+            Log.i("ASDD", values[0]);
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+//            Intent intent = new Intent(FaceDetection.this, MainActivity.class);
+//            startActivity(intent);
+
+        }
     }
 
     private void takePicture(){

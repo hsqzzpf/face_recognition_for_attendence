@@ -5,10 +5,17 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+    <EditText
+        android:id="@+id/topText"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:text="Type in your name"
+        />
     <TextureView
         android:id="@+id/textureView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/topText"
         android:layout_above="@+id/start"/>
 
     <Button

@@ -20,19 +20,17 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-
-
             <TextView
                 android:id="@id/title"
-                android:text="50.001 Information System and Programming"
+                android:text="course name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
                 android:textSize="17dp" />
 
             <TextView
-                android:id="@+id/venue"
-                android:text="2.506 SUTD"
+                android:id="@+id/session"
+                android:text="session"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
@@ -40,20 +38,27 @@
                 android:layout_marginTop="10dp"/>
 
             <TextView
-                android:id="@+id/time"
-                android:text="9:30-11:30, 25th Oct, Thursday"
+                android:id="@+id/date_timing"
+                android:text="date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@id/venue" />
+                android:layout_below="@id/session" />
 
             <TextView
-                android:id="@+id/signing"
-                android:text="Signing in"
+                android:id="@+id/venue"
+                android:text="venue"
                 android:layout_alignParentLeft="true"
-                android:layout_below="@id/time"
+                android:layout_below="@id/date_timing"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/signin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/venue"
+                android:layout_alignParentLeft="true"/>
 
         </RelativeLayout>
 

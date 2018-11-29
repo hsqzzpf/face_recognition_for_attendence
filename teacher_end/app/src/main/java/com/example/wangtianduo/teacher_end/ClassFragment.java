@@ -3,6 +3,8 @@ package com.example.wangtianduo.teacher_end;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,10 @@ import android.widget.TextView;
 public class ClassFragment extends Fragment {
 
     private String mFrom;
+    RecyclerView recyclerView;
+    ClassDbHelper classDbHelper;
+    ClassAdapter classAdapter;
+
     static ClassFragment newInstance(String from){
         ClassFragment fragment = new ClassFragment();
         Bundle bundle = new Bundle();
@@ -31,16 +37,18 @@ public class ClassFragment extends Fragment {
         }
     }
 
-
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.home_fragment_layout,null);
-        TextView textView = (TextView) view.findViewById(R.id.title_from);
-        TextView content = (TextView) view.findViewById(R.id.fragment_content);
-        textView.setText(mFrom);
-        content.setText("DiscoveryFragment");
+        View view = inflater.inflate(R.layout.course_recycle_view,null);
+
+        recyclerView = view.findViewById(R.id.classRecyclerView);
+        classDbHelper = ClassDbHelper.createClassDbHelper(getContext());
+        classAdapter = new ClassAdapter(getContext(), classDbHelper);
+
+        recyclerView.setAdapter(classAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
         return view;
     }
 }

@@ -40,13 +40,18 @@ public class UploadFaceSet {
         byteMap.put("image_file", buff);
         String str = "";
         try{
-            byte[] bacd = post(url, map, byteMap);
+            byte[] bacd = detect(url, map, byteMap);
             str = new String(bacd);
 
             JSONObject json = new JSONObject(str);
 
-            JSONArray imgID = json.getJSONArray("faces");
-            Log.i("ASDF", String.valueOf(imgID.length()));
+            JSONArray faces = json.getJSONArray("faces");
+
+            if (faces.length() != 0) {
+                String faceToken = faces.getJSONArray(0).getString(0);
+                Log.i("ASDF", faceToken);
+            }
+            Log.i("ASDF", String.valueOf(faces.length()));
 
         }catch (Exception e) {
             e.printStackTrace();
@@ -61,7 +66,7 @@ public class UploadFaceSet {
     private final static int CONNECT_TIME_OUT = 30000;
     private final static int READ_OUT_TIME = 50000;
     private static String boundaryString = getBoundary();
-    protected static byte[] post(String url, HashMap<String, String> map, HashMap<String, byte[]> fileMap) throws Exception {
+    protected static byte[] detect(String url, HashMap<String, String> map, HashMap<String, byte[]> fileMap) throws Exception {
         HttpURLConnection conne;
         URL url1 = new URL(url);
         conne = (HttpURLConnection) url1.openConnection();
@@ -98,6 +103,58 @@ public class UploadFaceSet {
                 obos.writeBytes("\r\n");
             }
         }
+        obos.writeBytes("--" + boundaryString + "--" + "\r\n");
+        obos.writeBytes("\r\n");
+        obos.flush();
+        obos.close();
+        InputStream ins = null;
+        int code = conne.getResponseCode();
+        try{
+            if(code == 200){
+                ins = conne.getInputStream();
+            }else{
+                ins = conne.getErrorStream();
+            }
+        }catch (SSLException e){
+            e.printStackTrace();
+            return new byte[0];
+        }
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        byte[] buff = new byte[4096];
+        int len;
+        while((len = ins.read(buff)) != -1){
+            baos.write(buff, 0, len);
+        }
+        byte[] bytes = baos.toByteArray();
+        ins.close();
+        return bytes;
+    }
+    protected static byte[] addFace(String url, HashMap<String, String> map) throws Exception {
+        HttpURLConnection conne;
+        URL url1 = new URL(url);
+        conne = (HttpURLConnection) url1.openConnection();
+        conne.setDoOutput(true);
+        conne.setUseCaches(false);
+        conne.setRequestMethod("POST");
+        conne.setConnectTimeout(CONNECT_TIME_OUT);
+        conne.setReadTimeout(READ_OUT_TIME);
+        conne.setRequestProperty("accept", "*/*");
+        conne.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundaryString);
+        conne.setRequestProperty("connection", "Keep-Alive");
+        conne.setRequestProperty("user-agent", "Mozilla/4.0 (compatible;MSIE 6.0;Windows NT 5.1;SV1)");
+        DataOutputStream obos = new DataOutputStream(conne.getOutputStream());
+        Iterator iter = map.entrySet().iterator();
+        while(iter.hasNext()){
+            Map.Entry<String, String> entry = (Map.Entry) iter.next();
+            String key = entry.getKey();
+            String value = entry.getValue();
+            obos.writeBytes("--" + boundaryString + "\r\n");
+            obos.writeBytes("Content-Disposition: form-data; name=\"" + key
+                    + "\"\r\n");
+            obos.writeBytes("\r\n");
+            obos.writeBytes(value + "\r\n");
+        }
+
         obos.writeBytes("--" + boundaryString + "--" + "\r\n");
         obos.writeBytes("\r\n");
         obos.flush();

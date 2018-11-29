@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +33,6 @@ public class SettingFragment extends Fragment {
             mFrom = getArguments().getString("from");
         }
 
-
     }
 
     @Nullable
@@ -44,20 +44,14 @@ public class SettingFragment extends Fragment {
 
         TextView textView = view.findViewById(R.id.returnValue);
 
-
+        Log.i("ASDF", "Setting");
         add_face.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.i("ASDF", "Start first activity");
 
                 Intent intent = new Intent(getContext(), FaceDetection.class);
                 startActivity(intent);
-
-            }
-        });
-
-        adjust_course.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
             }
         });
