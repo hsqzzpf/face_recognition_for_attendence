@@ -55,9 +55,13 @@ public class FaceDetection extends AppCompatActivity {
 
     private static final SparseIntArray ORIENTATIONS = new SparseIntArray();
     static{
-        ORIENTATIONS.append(Surface.ROTATION_0, 90);
+//        ORIENTATIONS.append(Surface.ROTATION_0, 90);
+//        ORIENTATIONS.append(Surface.ROTATION_90, 0);
+//        ORIENTATIONS.append(Surface.ROTATION_180, 270);
+//        ORIENTATIONS.append(Surface.ROTATION_270, 180);
+        ORIENTATIONS.append(Surface.ROTATION_0, 270);
         ORIENTATIONS.append(Surface.ROTATION_90, 0);
-        ORIENTATIONS.append(Surface.ROTATION_180, 270);
+        ORIENTATIONS.append(Surface.ROTATION_180, 90);
         ORIENTATIONS.append(Surface.ROTATION_270, 180);
     }
 
@@ -106,9 +110,14 @@ public class FaceDetection extends AppCompatActivity {
         btnCapture.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-
-                AsynUpload asy = new AsynUpload();
-                asy.execute(1);
+                String user_id = editText.getText().toString();
+                if (user_id.length() == 0) {
+                    Toast.makeText(FaceDetection.this, "Please type in your name", Toast.LENGTH_SHORT).show();
+                }else {
+                    Log.i("ASDF", "your name: " + user_id);
+                    AsynUpload asy = new AsynUpload();
+                    asy.execute(user_id);
+                }
                 return;
             }
         });
@@ -117,11 +126,11 @@ public class FaceDetection extends AppCompatActivity {
 //        startActivity(intent);
 
     }
-    class AsynUpload extends AsyncTask<Integer, String, String> {
+    class AsynUpload extends AsyncTask<String, String, String> {
 
         @Override
-        protected String doInBackground(Integer... integers) {
-            takePicture();
+        protected String doInBackground(String... user_id) {
+            takePicture(user_id[0]);
             return null;
         }
 
@@ -140,7 +149,7 @@ public class FaceDetection extends AppCompatActivity {
         }
     }
 
-    private void takePicture(){
+    private void takePicture(final String user_id){
         if (cameraDevice == null){
             return;
         }
@@ -205,9 +214,8 @@ public class FaceDetection extends AppCompatActivity {
                     try{
 //                        outputStream = new FileOutputStream(file);
 //                        outputStream.write(bytes);
-                        String s = UploadFaceSet.upload(bytes);
-                        Log.i("ASDF", s);
-
+                        String s = UploadFaceSet.upload(bytes, user_id);
+//
                         Intent intent = new Intent(FaceDetection.this, MainActivity.class);
                         startActivity(intent);
                     }catch (Exception e) {

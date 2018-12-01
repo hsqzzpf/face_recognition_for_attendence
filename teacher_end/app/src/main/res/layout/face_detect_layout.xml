@@ -9,8 +9,8 @@
         android:id="@+id/topText"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:text="Type in your name"
-        />
+        android:hint="Type in your name"
+        android:text="" />
     <TextureView
         android:id="@+id/textureView"
         android:layout_width="match_parent"
