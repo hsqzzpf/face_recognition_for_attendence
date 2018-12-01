@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
+
 public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHolder>{
 
     LayoutInflater mInflater;
@@ -39,11 +40,8 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
     public void onBindViewHolder(@NonNull ClassViewHolder ClassViewHolder, int i) {
         ClassDbHelper.ClassData classData = ClassDbHelper.queryOneRow(i);
 
-        ClassViewHolder.textViewName.setText(classData.getName());
-        ClassViewHolder.textViewSession.setText(classData.getSession());
-        ClassViewHolder.textViewPosition.setText(Integer.toString(i));
-        ClassViewHolder.textViewDate.setText(classData.getDate());
-        ClassViewHolder.textViewTiming.setText(classData.getTiming());
+        ClassViewHolder.textViewClassName.setText((classData.getName()+classData.getSession()));
+        ClassViewHolder.textViewTime.setText(classData.getDate()+classData.getTiming());
         ClassViewHolder.textViewVenue.setText(classData.getVenue());
     }
 
@@ -57,21 +55,18 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
     //TODO 9.2 Complete the constructor to initialize the widgets
     class ClassViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView textViewName;
-        public TextView textViewSession;
-        public TextView textViewPosition;
-        public TextView textViewDate;
-        public TextView textViewTiming;
+        public TextView textViewClassName;
+        public TextView textViewTime;
         public TextView textViewVenue;
+        public TextView textViewSignInStatus;
+
 
         public ClassViewHolder(View view){
             super(view);
-            textViewName = view.findViewById(R.id.cardViewTextName);
-            textViewSession = view.findViewById(R.id.cardViewTextDescription);
-            textViewPosition = view.findViewById(R.id.cardViewTextCount);
-            textViewDate = view.findViewById(R.id.cardViewTextDate);
-            textViewTiming = view.findViewById(R.id.cardViewTextTiming);
-            textViewVenue = view.findViewById(R.id.cardViewTextVenue);
+            textViewClassName = view.findViewById(R.id.cardViewTextName);
+            textViewTime = view.findViewById(R.id.cardViewTime);
+            textViewVenue = view.findViewById(R.id.cardViewVenue);
+            textViewSignInStatus = view.findViewById(R.id.cardViewSignInStatus);
 
         }
 
