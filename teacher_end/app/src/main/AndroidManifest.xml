@@ -25,6 +25,9 @@
         <activity android:name=".FaceDetection">
 
         </activity>
+        <activity android:name=".TabCardview">
+            
+        </activity>
     </application>
 
 </manifest>

@@ -8,4 +8,5 @@
     <color name="ocean_dark">#5F9EA0</color>
     <color name="background_blue">#e4f1fd</color>
     <color name="medium_blue">#2f7dc0</color>
+    <color name="light_grey">#b3b3b3</color>
 </resources>

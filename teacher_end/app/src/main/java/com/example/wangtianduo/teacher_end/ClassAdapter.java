@@ -8,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 
 
 public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHolder>{
@@ -17,6 +19,16 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
     LayoutInflater mInflater;
     Context context;
     ClassDbHelper ClassDbHelper;
+
+    private ClassAdapter.OnItemClickListener onItemClickListener;
+    //Click Interface
+    public interface OnItemClickListener{
+        void onItemClick(View view,int position);
+    }
+    //Click Listener
+    public void setOnItemClickListener(ClassAdapter.OnItemClickListener listener){
+        this.onItemClickListener = listener;
+    }
 
 
     //TODO 9.3 Constructor takes in a context object and a ClassDbHelper object
@@ -37,12 +49,22 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
 
     //TODO 9.5 onBindViewHolder binds the data to each card according to its position
     @Override
-    public void onBindViewHolder(@NonNull ClassViewHolder ClassViewHolder, int i) {
+    public void onBindViewHolder(@NonNull final ClassViewHolder classViewHolder, int i) {
         ClassDbHelper.ClassData classData = ClassDbHelper.queryOneRow(i);
 
-        ClassViewHolder.textViewClassName.setText((classData.getName()+classData.getSession()));
-        ClassViewHolder.textViewTime.setText(classData.getDate()+classData.getTiming());
-        ClassViewHolder.textViewVenue.setText(classData.getVenue());
+        classViewHolder.textViewClassName.setText((classData.getName()+classData.getSession()));
+        classViewHolder.textViewTime.setText(classData.getDate()+classData.getTiming());
+        classViewHolder.textViewVenue.setText(classData.getVenue());
+
+        classViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onItemClickListener!=null){
+                    int pos = classViewHolder.getLayoutPosition();
+                    onItemClickListener.onItemClick(classViewHolder.itemView,pos);
+                }
+            }
+        });
     }
 
     //TODO 9.6 this method controls the number of cardviews in the recyclerview
@@ -67,8 +89,8 @@ public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHol
             textViewTime = view.findViewById(R.id.cardViewTime);
             textViewVenue = view.findViewById(R.id.cardViewVenue);
             textViewSignInStatus = view.findViewById(R.id.cardViewSignInStatus);
-
         }
 
     }
+
 }
