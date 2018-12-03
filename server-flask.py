@@ -67,6 +67,10 @@ def add_new():
 		name = request.form['name']
 		with sql.connect("database.db") as con:
 			cur = con.cursor()
+			find = check_if_in(name, cur)
+			if find:
+				out = {'FAILED': 'ALREADY IN DATABASE'}
+				return json.dumps(out)
 			cur.execute('INSERT INTO students (name, class1, class2, class3, class4, class5, class6) VALUES (?,?,?,?,?,?,?)', (str(name), 'FALSE', 'FALSE', 'FALSE', 'FALSE', 'FALSE', 'FALSE'))
 			con.commit()
 			out = {'SUCCESS': 'CHANGE SUCCESS'}
