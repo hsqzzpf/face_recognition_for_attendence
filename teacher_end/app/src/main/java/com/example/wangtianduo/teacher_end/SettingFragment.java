@@ -1,11 +1,14 @@
 package com.example.wangtianduo.teacher_end;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -29,16 +32,29 @@ public class SettingFragment extends Fragment {
         if(getArguments()!=null){
             mFrom = getArguments().getString("from");
         }
+
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.home_fragment_layout,null);
-        TextView textView = (TextView) view.findViewById(R.id.title_from);
-        TextView content = (TextView) view.findViewById(R.id.fragment_content);
-        textView.setText(mFrom);
-        content.setText("ProfileFragment");
+        View view = inflater.inflate(R.layout.setting_page,null);
+        Button add_face = (Button) view.findViewById(R.id.add_new);
+        Button adjust_course = (Button) view.findViewById(R.id.adjust_curriculum);
+
+        TextView textView = view.findViewById(R.id.returnValue);
+
+        add_face.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(getContext(), FaceDetection.class);
+                startActivity(intent);
+
+            }
+        });
+
+
         return view;
     }
 }
