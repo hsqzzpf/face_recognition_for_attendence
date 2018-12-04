@@ -1,26 +1,41 @@
 package com.example.wangtianduo.teacher_end;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.Toast;
+
+import com.squareup.timessquare.CalendarPickerView;
+
+import java.util.Calendar;
+import java.util.Date;
 
 
 public class MainActivity extends AppCompatActivity {
 
     private TabLayout mTabLayout;
-    private Fragment[] mFragmensts;
+    private Fragment[] mFragments;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bottom_tab_layout_ac);
-        mFragmensts = DataGenerator.getFragments("TabLayout Tab");
+        mFragments = DataGenerator.getFragments("TabLayout Tab");
+
+        Calendar nextYear = Calendar.getInstance();
+        nextYear.add(Calendar.YEAR, 1);
+
+        CalendarPickerView calendar = (CalendarPickerView) findViewById(R.id.calendar_view);
+        Date today = new Date();
+        calendar.init(today, nextYear.getTime())
+                .withSelectedDate(today);
 
         initView();
-
     }
 
     private void initView() {
@@ -64,17 +79,17 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = mFragmensts[0];
+                fragment = mFragments[0];
                 break;
             case 1:
-                fragment = mFragmensts[1];
+                fragment = mFragments[1];
                 break;
 
             case 2:
-                fragment = mFragmensts[2];
+                fragment = mFragments[2];
                 break;
             case 3:
-                fragment = mFragmensts[3];
+                fragment = mFragments[3];
                 break;
         }
         if (fragment != null) {
