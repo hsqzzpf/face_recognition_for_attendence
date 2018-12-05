@@ -1,11 +1,9 @@
 package com.example.wangtianduo.teacher_end;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -13,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 /**
  * Created by zhouwei on 17/4/23.
@@ -40,7 +37,6 @@ public class ClassFragment extends Fragment {
         if(getArguments()!=null){
             mFrom = getArguments().getString("from");
         }
-
     }
 
     @Nullable
@@ -52,19 +48,20 @@ public class ClassFragment extends Fragment {
         classDbHelper = ClassDbHelper.createClassDbHelper(getContext());
         classAdapter = new ClassAdapter(getContext(), classDbHelper);
 
-
         recyclerView.setAdapter(classAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         classAdapter.setOnItemClickListener(new ClassAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Intent intent = new Intent(getContext(),TabCardview.class);
-                intent.putExtra("position",String.valueOf(position));
+                Log.i("ASDF", "onitemclick");
+                Intent intent = new Intent(getContext(), TabCardview.class);
+                intent.putExtra("position", String.valueOf(position));
+                Log.i("ASDF", "intent put extra");
                 startActivity(intent);
-
             }
         });
+
         return view;
     }
 }

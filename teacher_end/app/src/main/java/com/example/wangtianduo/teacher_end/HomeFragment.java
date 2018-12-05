@@ -1,19 +1,18 @@
 package com.example.wangtianduo.teacher_end;
 
 import android.os.Bundle;
-
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+/**
+ * Created by zhouwei on 17/4/23.
+ */
+
 public class HomeFragment extends Fragment {
-    private int count = 0;
-
-
     private String mFrom;
     static HomeFragment newInstance(String from){
         HomeFragment fragment = new HomeFragment();
@@ -29,9 +28,6 @@ public class HomeFragment extends Fragment {
         if(getArguments()!=null){
             mFrom = getArguments().getString("from");
         }
-
-
-
     }
 
     @Nullable
@@ -45,4 +41,3 @@ public class HomeFragment extends Fragment {
         return view;
     }
 }
-

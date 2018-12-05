@@ -9,31 +9,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.squareup.timessquare.CalendarPickerView;
-
-import java.util.Calendar;
-import java.util.Date;
-
 
 public class MainActivity extends AppCompatActivity {
 
     private TabLayout mTabLayout;
-    private Fragment[] mFragments;
+    private Fragment[] mFragmensts;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.bottom_tab_layout_ac);
-        mFragments = DataGenerator.getFragments("TabLayout Tab");
-
-        Calendar nextYear = Calendar.getInstance();
-        nextYear.add(Calendar.YEAR, 1);
-
-        CalendarPickerView calendar = (CalendarPickerView) findViewById(R.id.calendar_view);
-        Date today = new Date();
-        calendar.init(today, nextYear.getTime())
-                .withSelectedDate(today);
+        mFragmensts = DataGenerator.getFragments("TabLayout Tab");
 
         initView();
     }
@@ -79,17 +66,17 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = mFragments[0];
+                fragment = mFragmensts[0];
                 break;
             case 1:
-                fragment = mFragments[1];
+                fragment = mFragmensts[1];
                 break;
 
             case 2:
-                fragment = mFragments[2];
+                fragment = mFragmensts[2];
                 break;
             case 3:
-                fragment = mFragments[3];
+                fragment = mFragmensts[3];
                 break;
         }
         if (fragment != null) {
